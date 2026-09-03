@@ -1,0 +1,14 @@
+# Legacy DAGM timing config. Prefer configs/benchmark_dagm_demo.yaml or a
+# product-specific benchmark YAML.
+schema_version: 2
+benchmark_standard: internal_rtx4070
+active_models_pointer: outputs/dagm2007/active_models.yaml
+device: cuda:0
+category: Class1
+image_dir: data/dagm2007/Class1/Test
+warmup: 20
+runs: 100
+allow_nonexclusive_measurement: true
+output: outputs/benchmark_internal_rtx4070_p50_v3.yaml
+measurement_note: P50 is the project benchmark statistic; non-exclusive timing is allowed for diagnosis, but only an exclusive RTX 4070 run is claim-eligible, and this result cannot establish official RTX 2060 compliance.
+timing_scope: model/runtime inference only; disk decode, target-size preparation, model loading, and output encoding excluded

@@ -1,0 +1,7 @@
+# Optional DAGM2007 single-image demonstration.
+active_models_pointer: outputs/dagm2007/active_models.yaml
+device: auto
+category: Class1
+image: data/dagm2007/Class1/Test/0001.PNG
+feedback_enabled: false
+feedback_root: outputs/feedback

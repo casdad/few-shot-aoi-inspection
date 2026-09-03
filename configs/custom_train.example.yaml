@@ -1,0 +1,23 @@
+# Paths in this wrapper are relative to the AOI project root.
+schema_version: 1
+base_training_config: configs/custom_training_base.yaml
+task_name: private_part_a
+category: private_part_a
+
+normal_dir: data/private_part_a/support/normal
+defect_dir: data/private_part_a/support/defect
+# mask_dir: data/private_part_a/support/masks
+
+# Optional during training. When supplied it must contain at least 1000 labeled,
+# unique images and must not overlap the 100+30 support by SHA-256.
+test_manifest: data/private_part_a/test_manifest.yaml
+minimum_test_images: 1000
+
+device: auto
+seed: 20260808
+head:
+  epochs: 60
+  learning_rate: 0.01
+
+output_root: outputs/custom_tasks/private_part_a
+refuse_overwrite: true

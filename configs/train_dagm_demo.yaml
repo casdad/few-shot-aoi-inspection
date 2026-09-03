@@ -1,0 +1,27 @@
+# Optional local DAGM2007 demo/benchmark training.
+dataset: dagm2007
+data_root: data/dagm2007
+categories: auto
+
+protocol:
+  normal_support: 100
+  defect_support: 30
+  minimum_holdout_per_category: 1
+  minimum_pooled_test: 8000
+
+run_name: dagm2007_demo
+candidate_id: AOI-DAGM2007-DEMO
+device: auto
+seed: 20260808
+
+source_assets:
+  resnet18_weights: assets/resnet18-f37072fd.pth
+  dinov2_repository: assets/dinov2
+  dinov2_weights: assets/dinov2_vits14_pretrain.pth
+  source_model: assets/source_model.pt
+
+head:
+  epochs: 60
+  learning_rate: 0.01
+
+output_root: outputs/dagm2007

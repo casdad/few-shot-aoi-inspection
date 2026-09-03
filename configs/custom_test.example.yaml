@@ -1,0 +1,18 @@
+# Paths in this wrapper are relative to the AOI project root.
+schema_version: 1
+active_models_pointer: outputs/custom_tasks/private_part_a/active_models.yaml
+category: private_part_a
+test_manifest: data/private_part_a/test_manifest.yaml
+
+device: auto
+batch_size: 4
+minimum_total_images: 1000
+evaluation_role: independent_test
+# Set these only for a genuinely fresh test supplied after the model,
+# calibration and thresholds were frozen. Defaults remain claim-ineligible.
+fresh_independent_test_attested: false
+test_observed_before_freeze: true
+
+output_root: outputs/custom_tasks/private_part_a/test_runs
+timestamp_output: true
+refuse_overwrite: true

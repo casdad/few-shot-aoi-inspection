@@ -1,0 +1,13 @@
+# Explicit read-only-compatible entrypoint for the preserved historical MVTec models.
+dataset: mvtec_ad
+data_root: data/mvtec_ad
+active_models_pointer: outputs/active_models.yaml
+
+device: auto
+batch_size: 4
+minimum_total_images: 1000
+evaluation_role: development_diagnostic
+fn_diagnostic_categories: [capsule, pill, screw]
+
+output_root: outputs/evaluation_mvtec_legacy_new_run
+refuse_overwrite: true

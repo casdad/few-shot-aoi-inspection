@@ -1,0 +1,34 @@
+# Legacy DAGM2007 compatibility config. It is never loaded implicitly.
+# Prefer train_dagm_demo.yaml for an explicit DAGM demonstration, or use
+# custom_training_base.yaml through the production UI.
+# DAGM2007 100-normal + 30-defect few-shot protocol.
+# Support and calibration use only the official ClassN/Train split.
+# Evaluation uses the complete, disjoint official ClassN/Test split.
+
+dataset: dagm2007
+data_root: data/dagm2007
+categories: auto     # Or e.g. [Class1, Class2] for a quick local experiment.
+
+protocol:
+  normal_support: 100
+  defect_support: 30
+  minimum_holdout_per_category: 1
+  minimum_pooled_test: 8000
+
+run_name: dagm2007
+candidate_id: AOI-DAGM2007
+
+device: auto
+seed: 20260808
+
+source_assets:
+  resnet18_weights: assets/resnet18-f37072fd.pth
+  dinov2_repository: assets/dinov2
+  dinov2_weights: assets/dinov2_vits14_pretrain.pth
+  source_model: assets/source_model.pt
+
+head:
+  epochs: 60
+  learning_rate: 0.01
+
+output_root: outputs/dagm2007

@@ -1,0 +1,8 @@
+# Legacy DAGM inference config. Prefer configs/infer_dagm_demo.yaml or a
+# product-specific YAML pointing to outputs/custom_tasks/<product>.
+active_models_pointer: outputs/dagm2007/active_models.yaml
+device: auto
+category: Class1
+image: data/dagm2007/Class1/Test/0001.PNG
+feedback_enabled: true
+feedback_root: outputs/feedback

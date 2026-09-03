@@ -1,0 +1,106 @@
+# Secrets and local credentials
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+credentials*
+secrets*
+
+# Python caches, environments, and test artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.venv/
+venv/
+env/
+
+# IDE and operating-system files
+.idea/
+.vscode/
+.zcode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs, temporary files, and local databases
+*.log
+*.tmp
+*.temp
+*.db
+*.sqlite
+*.sqlite3
+/tmp/
+
+# Local datasets and product/customer imagery
+/data/*
+!/data/README.md
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tif
+*.tiff
+*.webp
+*.gif
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# Generated models, checkpoints, engines, and run artifacts
+*.pt
+*.pth
+*.onnx
+*.engine
+*.trt
+*.ckpt
+*.safetensors
+*.pb
+*.h5
+*.tflite
+*.npy
+*.npz
+*.pkl
+*.pickle
+/outputs/*
+!/outputs/README.md
+
+# Local demo pixels are generated from user-supplied, licensed data
+/assets/demo/*
+!/assets/demo/README.md
+/docs/*
+!/docs/PROVENANCE.md
+!/docs/images/
+/docs/images/*
+!/docs/images/README.md
+
+# Competition packages, audits, and internal authoring artifacts
+/audit/
+/submission_materials/
+/build_competition_intro_docx.py
+/build_competition_project_docx.py
+/finalize_competition_docx.py
+/verify_competition_docx.py
+/COMPLETE_SYSTEM_DESIGN_CN.md
+/MODEL_AND_DATA_PROVENANCE.md
+/UI使用说明.md
+/项目使用与协议说明.md
+/项目文档_可自学习的AOI实时在线AI质检.md
+
+# Archives and office documents are generated/reviewed outside the public tree
+*.zip
+*.7z
+*.rar
+*.doc
+*.docx
+*.pdf

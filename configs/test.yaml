@@ -1,0 +1,17 @@
+# Legacy DAGM evaluation config. It is never loaded implicitly. Prefer the
+# explicit configs/test_dagm_demo.yaml demonstration config.
+dataset: dagm2007
+data_root: data/dagm2007
+active_models_pointer: outputs/dagm2007/active_models.yaml
+
+device: auto
+batch_size: 4
+minimum_total_images: 8000
+evaluation_role: public_development_benchmark
+fresh_independent_test_attested: false
+test_observed_before_freeze: true
+fn_diagnostic_categories: []
+
+output_root: outputs/test_runs/dagm2007
+timestamp_output: true
+refuse_overwrite: true

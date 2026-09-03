@@ -1,0 +1,8 @@
+torch>=2.5,<2.6
+torchvision>=0.20,<0.21
+numpy>=1.26
+opencv-python>=4.9
+Pillow>=10.0
+PyYAML>=6.0
+tkinterdnd2>=0.4,<1
+scipy>=1.11

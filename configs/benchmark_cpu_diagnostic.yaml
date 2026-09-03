@@ -1,0 +1,12 @@
+schema_version: 2
+benchmark_standard: cpu_diagnostic
+active_models_pointer: outputs/dagm2007/active_models.yaml
+device: cpu
+category: Class1
+image_dir: data/dagm2007/Class1/Test
+warmup: 20
+runs: 100
+allow_nonexclusive_measurement: false
+output: outputs/benchmark_cpu_diagnostic_p50_v3.yaml
+measurement_note: CPU diagnostic only; P50 must be strictly below 2000 ms and the result is not eligible for a competition GPU acceptance claim.
+timing_scope: model/runtime inference only; disk decode, 2500x2500 preparation, model loading, and output encoding excluded

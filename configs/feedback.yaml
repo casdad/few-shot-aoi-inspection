@@ -1,0 +1,26 @@
+# Legacy DAGM feedback demonstration. Production tasks should copy
+# configs/feedback_product.example.yaml and use their own product pointer.
+schema_version: 1
+feedback_root: outputs/feedback
+active_models_pointer: outputs/dagm2007/active_models.yaml
+category: Class1
+device: auto
+minimum_recall: 0.90
+minimum_training_samples: 6
+minimum_validation_samples: 4
+epochs: 30
+learning_rate: 0.001
+weight_decay: 0.0001
+gradient_clip: 1.0
+l2_sp: 0.001
+seed: 20260830
+
+# Active learning only ranks a genuine unlabeled production/collection stream;
+# never use independent validation or private/competition test data. It never
+# trains or activates a revision. Supply query_input_dir here or pass --input-dir.
+query_budget: 20
+active_learning:
+  weights:
+    uncertainty: 0.55
+    branch_disagreement: 0.20
+    rarity: 0.25

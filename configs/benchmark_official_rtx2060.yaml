@@ -1,0 +1,11 @@
+schema_version: 2
+benchmark_standard: official_rtx2060
+active_models_pointer: outputs/dagm2007/active_models.yaml
+device: cuda:0
+category: Class1
+image_dir: data/dagm2007/Class1/Test
+warmup: 20
+runs: 100
+output: outputs/benchmark_official_rtx2060_p50_v3.yaml
+measurement_note: Project P50 statistical protocol; the official requirement only specifies NVIDIA RTX 2060 or lower and runtime strictly below 200 ms, and does not define a percentile. Automated eligibility requires an exact NVIDIA GeForce RTX 2060 device-name match.
+timing_scope: model/runtime inference only; disk decode, target-size preparation, model loading, and output encoding excluded

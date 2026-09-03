@@ -1,0 +1,21 @@
+# Copy this file for one production product and replace PRODUCT in both fields.
+schema_version: 1
+feedback_root: outputs/feedback
+active_models_pointer: outputs/custom_tasks/PRODUCT/active_models.yaml
+category: PRODUCT
+device: auto
+minimum_recall: 0.90
+minimum_training_samples: 6
+minimum_validation_samples: 4
+epochs: 30
+learning_rate: 0.001
+weight_decay: 0.0001
+gradient_clip: 1.0
+l2_sp: 0.001
+seed: 20260830
+query_budget: 20
+active_learning:
+  weights:
+    uncertainty: 0.55
+    branch_disagreement: 0.20
+    rarity: 0.25

@@ -1,0 +1,10 @@
+mvtec_root: data/mvtec_ad
+
+device: auto
+batch_size: 4
+minimum_total_images: 1000
+
+active_models_pointer: outputs/calibration_fusion_v2_20260808T132458Z/active_models.yaml
+output_root: outputs/evaluation_calibration_fusion_v2_20260808T132458Z
+refuse_overwrite: true
+evaluation_role: development_diagnostic
