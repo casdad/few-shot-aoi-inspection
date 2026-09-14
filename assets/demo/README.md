@@ -1,8 +1,7 @@
-# Demo input placeholder
+# 演示输入
 
-Place only images that you are authorized to publish in this directory. Customer,
-production, PCB, and other product-sensitive images must remain outside Git.
+仅在此目录放置获准公开发布的演示图像。客户图片、生产线图片、PCB 和其他产品敏感图像不应提交到 Git。
 
-The public repository intentionally contains no AOI sample pixels. The local DAGM2007
-copy used for release verification is publicly downloadable, but its redistribution
-license was not explicit in the source record checked during release preparation.
+当前公开仓库不包含 AOI 样本像素。原发布验证使用了本地 DAGM2007 数据，但当时未确认其再分发许可，因此未上传相关图片。
+
+检测入口及资源准备见[项目首页](../../README.md)。

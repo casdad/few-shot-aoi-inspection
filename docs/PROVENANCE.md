@@ -1,36 +1,24 @@
-# Public asset and data provenance
+# 资源与数据来源
 
-This repository publishes source code and configuration templates, not datasets or
-trained AOI model bundles.
+本仓库发布源码和配置模板，不分发数据集或训练完成的 AOI 模型包。
 
-## Third-party code
+## 第三方代码
 
-The local DINOv2 inference subset under `assets/dinov2/` is pinned to upstream commit
-`7764ea0f912e53c92e82eb78a2a1631e92725fc8` and retains its Apache-2.0 license and
-model card in that directory.
+`assets/dinov2/` 为固定版本的 DINOv2 推理代码子集，记录的上游提交为 `7764ea0f912e53c92e82eb78a2a1631e92725fc8`。该目录中的 Apache-2.0 许可证、模型卡和原始声明保持不变。
 
-## Expected public pretrained files
+## 预训练资源
 
-The training configuration expects these files, which are not committed:
+训练配置期望以下文件，仓库均未提交。下表保留原资源记录中的预期 SHA-256：
 
-| File | Expected SHA-256 | Source |
+| 文件 | 预期 SHA-256 | 来源 |
 | --- | --- | --- |
 | `assets/dinov2_vits14_pretrain.pth` | `b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9` | Meta AI DINOv2 |
 | `assets/resnet18-f37072fd.pth` | `f37072fd47e89c5e827621c5baffa7500819f7896bbacec160b1a16c560e07ec` | TorchVision ResNet18 |
 
-`assets/source_model.pt` and every adapted task bundle are also excluded. The local
-source model available during release preparation did not contain a complete,
-independently verified training-data provenance receipt, so it is not suitable for a
-public release.
+`assets/source_model.pt` 和所有任务适配模型包也未发布。原发布时可用的本地源模型缺少完整、独立核验的训练数据来源记录，因此没有上传；不能仅凭文件名认定来源已经确认。
 
-## Datasets
+## 数据集
 
-The release was exercised locally with DAGM2007, a synthetic industrial inspection
-benchmark published by the Heidelberg Collaboratory for Image Processing. Its Zenodo
-record states that the data is publicly available, but the record's explicit license
-field was blank when checked for this release. Consequently, no DAGM image or derived
-demo pixel is redistributed here. MVTec AD and all private/product datasets are also
-excluded.
+原发布记录使用 DAGM2007 合成工业检测数据进行了本地演示。当时检查的数据记录虽说明公开可获取，但显式许可字段为空，因此没有再分发 DAGM 原图或派生演示图片。这里保留的是当时的核查记录，不代表本次重新检查了当前许可状态。
 
-Users are responsible for downloading data from the original publisher and complying
-with the current license and usage terms.
+MVTec AD 和私人 / 产品数据同样不随仓库发布。数据结构与原归档入口见[数据说明](../data/README.md)，实际使用应依据原发布方适用的许可与条款。

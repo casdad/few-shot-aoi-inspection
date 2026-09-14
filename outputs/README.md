@@ -1,5 +1,7 @@
-# Output directory
+# 运行输出目录
 
-Training runs, model bundles, feedback records, evaluation predictions, benchmarks,
-videos, and other generated artifacts are written below this directory and excluded
-from Git. Treat every output as potentially sensitive until it has been reviewed.
+训练模型包、活动模型指针、评估预测、性能测试结果、反馈记录和视频等生成产物保存于本目录，并被 Git 忽略。
+
+这些文件不随当前公开仓库发布。推理前需自行准备兼容模型包，例如 DAGM 演示使用 `outputs/dagm2007/active_models.yaml`，并保留它引用的全部模型与校准资源。
+
+输出可能包含图片、产品信息和本机路径，手动发布前需逐项检查。参见[项目首页](../README.md)。
