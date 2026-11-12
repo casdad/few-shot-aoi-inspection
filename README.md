@@ -1,25 +1,46 @@
-# Few-Shot AOI Inspection：小样本工业视觉异常检测
+<div align="center">
+
+# Few-Shot AOI Inspection
+
+**小样本工业视觉异常检测**
+
+少量正常 / 缺陷样本即可适配：图像与视频检测、异常热力图、人工反馈审核与模型版本回滚。
+
+![Python](https://img.shields.io/badge/Python-3.10-3776AB?logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.5-EE4C2C?logo=pytorch&logoColor=white)
+![DINOv2](https://img.shields.io/badge/DINOv2-ViT--S%2F14-6f42c1)
+![PatchCore](https://img.shields.io/badge/PatchCore-style-2ea44f)
+![UI](https://img.shields.io/badge/UI-Tkinter-4B8BBE)
+![Status](https://img.shields.io/badge/Status-Research%20prototype-orange)
+![License](https://img.shields.io/badge/License-Not%20specified-lightgrey)
+
+[快速开始](#快速开始) · [模型与数据](#模型与数据) · [使用方法](#使用方法) · [目录说明](#目录说明) · [测试记录](#测试与历史记录) · [边界](#使用边界与发布说明)
+
+</div>
+
+---
+
+## 项目简介
 
 基于配置文件驱动的自动光学检测（AOI）项目，支持从少量正常 / 缺陷样本适配模型，完成图像与视频检测、异常热力图展示，以及人工反馈审核、模型版本激活和回滚。
 
+> [!WARNING]
 > **公开版本说明**：仓库提供源码、测试与配置模板，**不包含数据集、训练权重、已适配任务模型包或客户图片**。刚克隆时不能直接运行真实图像推理，需要先准备兼容模型包。项目是研究与工程原型，不将开发记录作为正式比赛成绩或生产线验收结果。
 
-[快速开始](#快速开始) · [模型与数据](#模型与数据) · [使用方法](#使用方法) · [目录说明](#目录说明) · [测试与历史记录](#测试与历史记录)
+当前运行接口是**正常 / 异常二分类**，不是多类别缺陷识别；融合分数不是校准后的概率，异常图也不等同于真实缺陷掩码或检测框。
 
-## 项目功能
+## 核心功能
 
 | 功能 | 说明 |
-| --- | --- |
-| 小样本适配 | 根据协议使用正常 / 缺陷支持集，支持 `image_label` 与 `pixel_mask` 模式 |
-| 图像检测 | 输出正常 / 异常判定、融合分数、阈值及分支诊断 |
-| 视频与摄像头 | 输出标注 MP4 和 YAML 计时摘要，可选择实时预览 |
-| 异常可视化 | 生成真实模型热力图、叠加结果和对比面板 |
-| 桌面工作流 | Tkinter 界面，覆盖数据导入、适配、检测、反馈、激活与回滚 |
-| 完整性检查 | 对带有当前完整性元数据的模型包校验 SHA-256 |
-| 数据管理 | DAGM2007 演示、历史 MVTec AD 路径和自定义产品 manifest |
-| 自动化测试 | 覆盖数据边界、运行时、反馈、UI、性能测试和打包 |
-
-当前运行接口是 **正常 / 异常二分类**，不是多类别缺陷识别；融合分数不是校准后的概率，异常图也不等同于真实缺陷掩码或检测框。
+|---|---|
+| **小样本适配** | 根据协议使用正常 / 缺陷支持集，支持 `image_label` 与 `pixel_mask` 模式 |
+| **图像检测** | 输出正常 / 异常判定、融合分数、阈值及分支诊断 |
+| **视频与摄像头** | 输出标注 MP4 和 YAML 计时摘要，可选择实时预览 |
+| **异常可视化** | 生成真实模型热力图、叠加结果和对比面板 |
+| **桌面工作流** | Tkinter 界面，覆盖数据导入、适配、检测、反馈、激活与回滚 |
+| **完整性检查** | 对带有当前完整性元数据的模型包校验 SHA-256 |
+| **数据管理** | DAGM2007 演示、历史 MVTec AD 路径和自定义产品 manifest |
+| **自动化测试** | 覆盖数据边界、运行时、反馈、UI、性能测试和打包 |
 
 ## 系统流程
 
@@ -36,36 +57,15 @@ flowchart TD
     H --> I[人工反馈审核与模型版本管理]
 ```
 
-模型层结合 ResNet 特征的局部 patch 记忆、冻结的 DINOv2 空间表征和小型已知缺陷分类头。各分支内部自行调整图像尺寸：PatchCore 风格分支使用 128×128，DINOv2 分支使用 252×252。输出包括判定、融合 / 分支分数、阈值及按需生成的异常图。
+### 模型结构
 
-## 目录说明
-
-```text
-few-shot-aoi-inspection/
-├── aoi/                       训练、运行时、反馈、UI 与 CLI 核心代码
-├── assets/
-│   ├── dinov2/                固定版本的第三方 DINOv2 源码与许可
-│   └── demo/                  演示输入放置说明，不含图片
-├── configs/                   DAGM、自定义任务、反馈和性能测试配置
-├── data/                      数据放置说明，不含数据集
-├── docs/PROVENANCE.md          资源来源、权重 hash 和发布边界
-├── docs/images/               本地可视化结果说明
-├── outputs/                   生成的模型包、评估结果和反馈记录
-├── scripts/generate_demo.py   真实模型热力图生成工具
-├── tests/                     Pytest 测试
-├── feedback_ui.py             桌面主入口
-├── train.py                   模型适配 / 训练入口
-├── test.py                    图像检测、评估和性能测试入口
-├── test_video.py              视频 / 摄像头入口
-├── requirements.txt           运行依赖
-└── requirements-dev.txt       测试依赖
-```
+模型层结合 ResNet 特征的局部 patch 记忆、冻结的 DINOv2 空间表征和小型已知缺陷分类头。各分支内部自行调整图像尺寸：PatchCore 风格分支使用 **128×128**，DINOv2 分支使用 **252×252**。输出包括判定、融合 / 分支分数、阈值及按需生成的异常图。
 
 ## 快速开始
 
 ### 安装环境
 
-原发布验证环境为 Python 3.10。依赖约束包括 PyTorch `>=2.5,<2.6`、TorchVision `>=0.20,<0.21`，以及 OpenCV、NumPy、Pillow、PyYAML、SciPy。桌面界面需要 Tk 和 `tkinterdnd2`。
+原发布验证环境为 **Python 3.10**。依赖约束包括 PyTorch `>=2.5,<2.6`、TorchVision `>=0.20,<0.21`，以及 OpenCV、NumPy、Pillow、PyYAML、SciPy。桌面界面需要 Tk 和 `tkinterdnd2`。
 
 Windows PowerShell：
 
@@ -96,7 +96,7 @@ python test_video.py --help
 
 ### 推理资源
 
-准备兼容的 `active_models.yaml`、它引用的全部模型 / 校准文件、共享资源，以及获准使用的输入图像。保持指针与模型包内的路径一致，不要只复制一个权重而遗漏元数据。
+准备兼容的 `active_models.yaml`、它引用的全部模型 / 校准文件、共享资源，以及获准使用的输入图像。保持指针与模型包内的路径一致，**不要只复制一个权重而遗漏元数据**。
 
 默认 DAGM 演示模型指针为 `outputs/dagm2007/active_models.yaml`。模型包带有当前完整性元数据时，加载器会执行对应的 SHA-256 检查。
 
@@ -110,7 +110,7 @@ assets/resnet18-f37072fd.pth
 assets/source_model.pt
 ```
 
-前两项的来源名称和预期 hash 见 [资源来源说明](docs/PROVENANCE.md)。`source_model.pt` 与适配后的任务包需要通过获准使用的数据和相应流程准备，不能当作克隆后自动存在的文件。
+前两项的来源名称和预期 hash 见 [资源来源说明](docs/PROVENANCE.md)。`source_model.pt` 与适配后的任务包需要通过获准使用的数据和相应流程准备，**不能当作克隆后自动存在的文件**。
 
 DAGM2007 目录结构见 [数据说明](data/README.md)。自定义产品任务从 [训练配置模板](configs/custom_train.example.yaml) 和 [测试配置模板](configs/custom_test.example.yaml) 开始。
 
@@ -160,9 +160,10 @@ python train.py dagm-demo --config configs/train_dagm_demo.yaml
 python train.py custom --config configs/product_train.yaml
 ```
 
-当前演示协议使用 **100 张正常 + 30 张缺陷支持样本**；是否需要掩码取决于适配模式。自定义模板若提供独立测试集，还设置了至少 1,000 张测试图像及支持集 / 测试集 SHA-256 不重叠要求。
+当前演示协议使用 **100 张正常 + 30 张缺陷支持样本**；是否需要掩码取决于适配模式。自定义模板若提供独立测试集，还设置了至少 **1,000 张测试图像**及支持集 / 测试集 SHA-256 不重叠要求。
 
-不要将独立验证 / 测试集放入支持集或主动学习池。DAGM 配置还有类别留出和汇总测试规模约束，少量随意放置的图像并不等同于满足完整协议。
+> [!IMPORTANT]
+> 不要将独立验证 / 测试集放入支持集或主动学习池。DAGM 配置还有类别留出和汇总测试规模约束，少量随意放置的图像并不等同于满足完整协议。
 
 ### 评估与性能测试
 
@@ -179,13 +180,36 @@ python test.py custom --config configs/product_test.yaml
 ## 输入与输出
 
 | 流程 | 输入 | 输出 |
-| --- | --- | --- |
+|---|---|---|
 | 图像检测 | 图像 + 模型指针 YAML | 终端 YAML 判定和分数 |
 | 可视化 | 图像 + 类别 + 模型包 | PNG 热力图 / 叠加图 / 面板与 YAML 记录 |
 | 视频检测 | 视频或摄像头 + 模型包 | 标注 MP4 与计时摘要 |
 | 训练 / 适配 | 符合协议的支持集和配置 | 带 hash 的模型包与活动模型指针 |
 | 评估 | 显式数据配置 + 冻结模型 | `outputs/` 下的预测与指标 |
 | 人工反馈 | 审核后的图像 / 帧反馈 | 版本化记录、候选模型和修订 |
+
+## 目录说明
+
+```text
+few-shot-aoi-inspection/
+├── aoi/                       训练、运行时、反馈、UI 与 CLI 核心代码
+├── assets/
+│   ├── dinov2/                固定版本的第三方 DINOv2 源码与许可
+│   └── demo/                  演示输入放置说明，不含图片
+├── configs/                   DAGM、自定义任务、反馈和性能测试配置
+├── data/                      数据放置说明，不含数据集
+├── docs/PROVENANCE.md         资源来源、权重 hash 和发布边界
+├── docs/images/               本地可视化结果说明
+├── outputs/                   生成的模型包、评估结果和反馈记录
+├── scripts/generate_demo.py   真实模型热力图生成工具
+├── tests/                     Pytest 测试
+├── feedback_ui.py             桌面主入口
+├── train.py                   模型适配 / 训练入口
+├── test.py                    图像检测、评估和性能测试入口
+├── test_video.py              视频 / 摄像头入口
+├── requirements.txt           运行依赖
+└── requirements-dev.txt       测试依赖
+```
 
 ## 测试与历史记录
 
@@ -204,7 +228,7 @@ python -m pytest -q
 以下内容保留自原英文 README，**不是本次中文文档整理重新执行的结果**：
 
 | 检查 | 原记录 |
-| --- | --- |
+|---|---|
 | 完整本地工作区 Pytest | `214 passed, 1 skipped` |
 | 仅公开文件导出副本 Pytest | `210 passed, 5 skipped` |
 | 依赖 / 语法检查 | `pip check` 和 `compileall` 通过 |
@@ -231,3 +255,11 @@ python -m pytest -q
 项目尚未选择统一的软件许可证，本次仅整理文档，不新增授权条款。第三方组件继续使用各自许可证；[DINOv2 许可证](assets/dinov2/LICENSE) 仅适用于该第三方代码，不覆盖整个项目。
 
 预训练资源、源模型边界与数据来源见 [PROVENANCE.md](docs/PROVENANCE.md)。
+
+---
+
+<div align="center">
+
+如果这个项目对你有帮助，欢迎点一个 ⭐ Star。
+
+</div>
